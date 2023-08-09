@@ -121,7 +121,7 @@ function displayButtons(){
   
   
   let displayButtons = categories.map(function(item){
-    return `<button class="filter-btn">${item}</button>`;
+    return `<button class="filter-btn" data-id=${item}>${item}</button>`;
   })
 
   displayButtons = displayButtons.join("");
@@ -129,8 +129,19 @@ function displayButtons(){
 
   const filterButtons = btnContainer.querySelectorAll(".filter-btn");
   filterButtons.forEach(function(btn){
-    btn.addEventListener("click", function(e){
-      console.log("Here", e.currentTarget.dataset.id);
+    btn.addEventListener("click", function (e){
+      const menuCategories = menu.filter(function(item){
+         if(btn.textContent == item.category)
+         {
+          return item;
+         }
+      });
+
+      console.log("Here-->", menuCategories);
+      if (btn.textContent === 'all')
+        displayMenuItems(menu);
+      else
+        displayMenuItems(menuCategories);
     });
   });
 }
